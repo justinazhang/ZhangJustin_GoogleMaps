@@ -76,24 +76,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         locationList = new ArrayList<LatLng>();
         // Add a marker in Sydney and move the camera
-        LatLng sanDiego = new LatLng(37.799, -117.154625);
-        mMap.addMarker(new MarkerOptions().position(sanDiego).title("I was born here"));
+        LatLng sanDiego = new LatLng(32.855, -117.2255);
+        mMap.addMarker(new MarkerOptions().position(sanDiego).title("Born here"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sanDiego));
-
-       /* if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("GoogleMapsAidan", "Failed FINE permission check");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 2);
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("GoogleMapsAidan", "Failed COARSE permission check");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-        }
-        if ((ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        ) || (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
-            Log.d("GoogleMapsAidan", "Either FINE or COARSE Passed permission check");
-            mMap.setMyLocationEnabled(true);
-        }
-        */
         locationSearch = (EditText) findViewById(R.id.editText_addr);
 
         gotMyLocationOneTIme = false;
@@ -125,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng userlocation = null;
 
-        //check the last known location, specifically list the provider network or gps
+
         try {
             if (service != null) {
                 Log.d("MyMapsApp", "onSearch: LocationManger is not null");
@@ -146,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("MyMapsApp", "Expection on getLastKnownLocation");
 
         }
-        // Create Geocoder
+
         if (!location.matches("")) {
             Geocoder geocoder = new Geocoder(this, Locale.US);
 
@@ -251,17 +236,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
             Log.d("MyMapsApp", "locationListenerNetwork: status change");
-            //switch(i)
-            //printout log.d and, or toast message
-            //break;
-            //case locationprovider.out_of_service
-            //enable network updates
-            //break;
-            //case locatino provider_temporarily_unavaiable
-            //enable both network and gps
-            // break;
-            //default;
-            // enable both netowrk and gps
 
         }
 
@@ -283,7 +257,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             dropAmarker(LocationManager.GPS_PROVIDER);
 
-            //Check if doing one time, if so remove updates to both gps and network'
             if(gotMyLocationOneTIme == false){
                 locationManager.removeUpdates(this);
                 locationManager.removeUpdates(locationListenerNetwork);
@@ -365,10 +338,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             } else {
                 userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(userLocation, MY_LOC_ZOOM_FACTOR);
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(userLocation, MY_LOC_ZOOM_FACTOR);  // its set to 17
                 if (provider == LocationManager.GPS_PROVIDER) {
-                    mMap.addCircle(new CircleOptions().center(userLocation).radius(1).strokeColor(Color.BLUE).strokeWidth(2).fillColor(Color.RED));
-                    mMap.addCircle(new CircleOptions().center(userLocation).radius(3).strokeColor(Color.BLUE).strokeWidth(2).fillColor(Color.TRANSPARENT));
+                    mMap.addCircle(new CircleOptions().center(userLocation).radius(1).strokeColor(Color.RED).strokeWidth(2).fillColor(Color.RED));
+                    mMap.addCircle(new CircleOptions().center(userLocation).radius(3).strokeColor(Color.RED).strokeWidth(2).fillColor(Color.TRANSPARENT));
                 } else {
                     mMap.addCircle(new CircleOptions().center(userLocation).radius(1).strokeColor(Color.BLUE).strokeWidth(2).fillColor(Color.BLUE));
                     mMap.addCircle(new CircleOptions().center(userLocation).radius(3).strokeColor(Color.BLUE).strokeWidth(2).fillColor(Color.TRANSPARENT));
@@ -388,28 +361,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     public void trackMyLocation(View view){
 
         if(notTrackingMyLocation){
 
             getLocation();
-            Toast.makeText(this, "trackMyLocation: tracking is on", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "tracking", Toast.LENGTH_SHORT).show();
 
             notTrackingMyLocation = false;
 
         } else if(!notTrackingMyLocation) {
             locationManager.removeUpdates(locationListenerGPS);
             locationManager.removeUpdates(locationListenerNetwork);
-            Toast.makeText(this, "trackMyLocation: tracking is off", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "tracking", Toast.LENGTH_SHORT).show();
 
             notTrackingMyLocation = true;
         }
     }
 
 
-
-    public void clear (View view){
+public void clearMarkers (View view){
         mMap.clear();
     }
 }

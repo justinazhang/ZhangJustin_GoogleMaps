@@ -1,38 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!-- Layout for the view Button -->
+    <!-- layout for the View button -->
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@android:color/holo_blue_light"
         android:weightSum="1">
-     <Button
-         android:id="@+id/button_view"
-         style="?android:attr/buttonStyleSmall"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="right"
-         android:onClick="changeView"
-         android:text="View"></Button>
+
+
+
+        <Button
+            android:id="@+id/buttonView"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="changeView"
+            android:text="View">
+
+        </Button>
+
+        <EditText
+            android:id="@+id/editText_addr"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/buttonSearch"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:onClick="onSearch"
+            android:text="Search">
+
+        </Button>
+
+        <Button
+            android:id="@+id/buttonTrack"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="trackMyLocation"
+            android:text="TRK" />
+
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="49dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clearMarkers"
+            android:text="CLR" />
+
 
     </LinearLayout>
-
-
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity" />
 </LinearLayout>
-
-
-

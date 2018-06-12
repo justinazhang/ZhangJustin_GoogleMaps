@@ -164,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             //get GPS status
-            //isProviderEndabled returns true is user has enabled gps on phone
+            //isProviderEndabled returns true if user has gps
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
             if (isGPSEnabled) {
                 Log.d("MyMapsApp", "getLocation: GPS is enabled");
@@ -178,7 +178,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if (!isGPSEnabled && !isNetworkEnabled) {
 
-                Log.d("MyMapsApp", "getLocation: no provider is enabled");
+                Log.d("MyMapsApp", "getLocation: no Provider is enabled");
 
             } else {
                 if (isNetworkEnabled) {
@@ -202,7 +202,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         } catch (Exception e) {
-            Log.d("MyMapsApp", "getLocation: Caught and exception");
+            Log.d("MyMapsApp", "Exception in GPS");
             e.printStackTrace();
 
         }
@@ -216,14 +216,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         public void onLocationChanged(Location location) {
             Log.d("MyMapsApp", "getLocation: Network is enabled");
             dropAmarker(LocationManager.NETWORK_PROVIDER);
-            // Check if doing one time via onMapReady, if so remove updates to both gps and network
+
             if (gotMyLocationOneTIme == false) {
                 locationManager.removeUpdates(this);
                 locationManager.removeUpdates(locationListenerGPS);
                 gotMyLocationOneTIme = true;
 
             } else {
-                //if here then we are tracking so relaunch request for network
+                //check self permission
                 if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
